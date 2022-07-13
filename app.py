@@ -1,6 +1,9 @@
 from flask import Flask, request, jsonify
+from flask_wtf.csrf import CSRFProtect
 
 app = Flask(__name__)
+csrf = CSRFProtect()
+csrf.init_app(app)
 
 messages = {}
 
@@ -28,6 +31,11 @@ def load_messages(topic):
 
     return jsonify(topic_messages)
 
+
+def create_app():
+    app = Flask(__name__)
+
+    return app
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0', port = 5000, debug = True)
